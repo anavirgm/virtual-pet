@@ -77,6 +77,7 @@
         android:ems="10"
         android:inputType="text"
         android:hint="Nombra a tu amigo"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/buttonSelect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

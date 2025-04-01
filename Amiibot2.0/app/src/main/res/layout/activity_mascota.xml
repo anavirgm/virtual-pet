@@ -55,7 +55,7 @@
         <ProgressBar
             android:id="@+id/progressBar1"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="333dp"
+            android:layout_width="320dp"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp" />
@@ -85,7 +85,7 @@
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="333dp"
+            android:layout_width="320dp"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp" />
@@ -115,7 +115,7 @@
         <ProgressBar
             android:id="@+id/progressBar3"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="333dp"
+            android:layout_width="320dp"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp" />
@@ -137,14 +137,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Sueño"
+            android:text="Energia"
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
         <ProgressBar
             android:id="@+id/progressBar4"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="333dp"
+            android:layout_width="320dp"
             android:layout_height="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="25dp" />

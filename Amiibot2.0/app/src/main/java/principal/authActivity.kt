@@ -58,7 +58,10 @@ class authActivity : AppCompatActivity() {
     private fun setupCardViewListeners() {
         val cardViews = listOf(
             R.id.card_2000, R.id.card_2001, R.id.card_2002, R.id.card_2003, R.id.card_2004,
-            R.id.card_2005
+            R.id.card_2005, R.id.card_2006, R.id.card_2007, R.id.card_2008, R.id.card_2009,
+            R.id.card_2010, R.id.card_2011, R.id.card_2012, R.id.card_2013, R.id.card_2014,
+            R.id.card_2015, R.id.card_2016, R.id.card_2017, R.id.card_2018, R.id.card_2019,
+            R.id.card_2020
         )
 
         for (cardId in cardViews) {

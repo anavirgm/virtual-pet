@@ -92,13 +92,13 @@ class inicioActivity : AppCompatActivity() {
             return
         }
 
-        db.collection("users_mascota")
+        db.collection("users_mascotas")
             .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
                     for (document in documents) {
-                        db.collection("users_mascota").document(document.id)
+                        db.collection("users_mascotas").document(document.id)
                             .update(
                                 "nombre", nombreMascota,
                                 "mascotaId", mascotaId
@@ -119,11 +119,10 @@ class inicioActivity : AppCompatActivity() {
                         "nombre" to nombreMascota,
                         "energia" to 100,
                         "hambre" to 100,
-                        "sueño" to 100,
                         "nivel" to 1
                     )
 
-                    db.collection("users_mascota").document()
+                    db.collection("users_mascotas").document()
                         .set(mascotaData)
                         .addOnSuccessListener {
                             guardarEnSharedPreferences(images[currentIndex], selectedBackground, nombreMascota)
