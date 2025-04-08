@@ -52,7 +52,7 @@ class mascotaActivity : AppCompatActivity() {
         actualizarInterfaz()
     }
 
-    private fun actualizarInterfaz() {
+    fun actualizarInterfaz() {
         progressXP.progress = mascotaManager.xp
         progressHambre.progress = mascotaManager.hambre
         progressAnimo.progress = mascotaManager.animo

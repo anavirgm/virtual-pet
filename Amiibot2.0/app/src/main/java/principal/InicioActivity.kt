@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.amiibot.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import principal.homeActivity
 
 class inicioActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView

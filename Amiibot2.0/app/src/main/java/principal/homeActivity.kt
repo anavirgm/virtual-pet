@@ -63,11 +63,6 @@ class homeActivity : AppCompatActivity() {
         val btnLeft = findViewById<ImageButton>(R.id.buttonLeft2)
         val btnRight = findViewById<ImageButton>(R.id.buttonRight2)
 
-        // Al presionar el botón de izquierda, cambia la imagen a la anterior
-        btnLeft.setOnClickListener {
-            currentImageIndex = if (currentImageIndex > 0) currentImageIndex - 1 else comidasCompradas.size - 1
-            btnComida.setImageResource(comidasCompradas[currentImageIndex]) // Cambiar la imagen de "Comida"
-        }
 
         // Al presionar el botón de derecha, cambia la imagen a la siguiente
         btnLeft.setOnClickListener {
@@ -100,11 +95,14 @@ class homeActivity : AppCompatActivity() {
         btnLampara.setOnClickListener {
             if (darkOverlay.visibility == View.VISIBLE) {
                 darkOverlay.visibility = View.GONE // Apagar "modo noche"
+                mascotaManager.encenderLampara() // Restaurar imagen normal
             } else {
                 darkOverlay.visibility = View.VISIBLE // Encender "modo noche"
-                mascotaManager.recargarEnergia() // Recuperar energía al apagar la luz
+                mascotaManager.mostrarMascotaDurmiendo() // Mantener dormido mientras la luz esté apagada
             }
         }
+
+
 
 
 

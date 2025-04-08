@@ -60,6 +60,8 @@ class mascotaActivity : AppCompatActivity() {
         nivelText.text = "Nivel: ${mascotaManager.nivel}"
 
         // Guardar en Firestore cuando se actualiza la interfaz
+
+        mascotaManager.guardarDatos()
         guardarDatosEnFirestore()
     }
 

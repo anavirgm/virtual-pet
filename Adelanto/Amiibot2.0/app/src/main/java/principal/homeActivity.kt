@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -56,6 +57,7 @@ class homeActivity : AppCompatActivity() {
         val btnSettings = findViewById<ImageButton>(R.id.btnsettings)
         val btnMascota = findViewById<ImageButton>(R.id.mascosta)
         val btnLampara = findViewById<ImageButton>(R.id.lampara)
+        val darkOverlay = findViewById<View>(R.id.darkOverlay)
 
         // Configurar el carrusel
         val btnLeft = findViewById<ImageButton>(R.id.buttonLeft2)
@@ -96,8 +98,14 @@ class homeActivity : AppCompatActivity() {
         }
 
         btnLampara.setOnClickListener {
-            mascotaManager.recargarEnergia()
+            if (darkOverlay.visibility == View.VISIBLE) {
+                darkOverlay.visibility = View.GONE // Apagar "modo noche"
+            } else {
+                darkOverlay.visibility = View.VISIBLE // Encender "modo noche"
+                mascotaManager.recargarEnergia() // Recuperar energía al apagar la luz
+            }
         }
+
 
 
         val btnTienda = findViewById<ImageButton>(R.id.Tienda)
