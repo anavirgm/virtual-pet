@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="green">#2CAD94</color>
-
+    <color name="colorPrimary">#6200EE</color>  <!-- Este es un color morado, puedes cambiarlo por el que prefieras -->
+    <color name="colorPrimaryDark">#3700B3</color>  <!-- Un color más oscuro para la barra de estado -->
+    <color name="colorAccent">#03DAC5</color>  <!-- Color de acento para elementos como botones -->
 
 </resources>

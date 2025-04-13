@@ -1,186 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    android:orientation="vertical"
-    tools:context=".settings.settingsActivity">
+    tools:context="settings.settingsActivity">
 
-    <LinearLayout
-        android:layout_width="372dp"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnback"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:text="Opciones"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintStart_toEndOf="@+id/btnback"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-        <TextView
-            android:layout_width="304dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="      Opciones"
-            android:textAlignment="center"
-            android:textSize="25sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="193dp"
+            android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="104dp"
+                    android:layout_height="36dp"
+                    android:text="musica"
+                    android:textSize="25sp" />
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="104dp"
+                    android:layout_height="36dp"
+                    android:text="Sonido"
+                    android:textSize="25sp" />
+
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="104dp"
+                    android:layout_height="36dp"
+                    android:text="Vibracion"
+                    android:textSize="25sp" />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="104dp"
+                    android:layout_height="36dp"
+                    android:text="Haptica"
+                    android:textSize="25sp" />
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-        <TextView
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:text="musica"
-            android:textSize="25sp"
-            />
-        <SeekBar
-            android:layout_width="240dp"
-            android:layout_height="36dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:text="Sonido"
-            android:textSize="25sp"
-            />
-
-        <SeekBar
-            android:layout_width="240dp"
-            android:layout_height="36dp" />
-
-    </LinearLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
 
-    <LinearLayout
-        android:layout_width="392dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+            <Button
+                android:id="@+id/btnCuenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="cuenta"
+                android:textAlignment="viewStart" />
 
-        <TextView
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:text="Vibracion"
-            android:textSize="25sp" />
-
-        <Switch
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="392dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-        <TextView
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:text="Haptica"
-            android:textSize="25sp" />
-
-        <Switch
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
 
-    <Button
-        android:id="@+id/btnCuenta"
+            <Button
+                android:id="@+id/btnNotificaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Notificaciones"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="cuenta"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5">
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnGeneral"
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/btnSonido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Sonido"
+                android:textAlignment="viewStart" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnAccesibilidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Accesibilidad"
+                android:textAlignment="viewStart" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnOpciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Opciones Avanzadas"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="general"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6">
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/notificaciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="notificaciones"/>
-
-    <Button
-        android:id="@+id/ra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="RA"/>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btncarga"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="Cargas"/>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnDispositivos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="Dispositivos y servicios"/>
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnOpciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="viewStart"
-        android:text="Opciones avanzadas"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
 
+            <Button
+                android:id="@+id/btnAsistencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Asistencia tecnica"
+                android:textAlignment="viewStart" />
 
-</LinearLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <Button
+                android:id="@+id/btnSaber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:text="Saber mas"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

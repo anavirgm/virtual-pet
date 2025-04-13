@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +15,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Amiibot"
         tools:targetApi="31">
+        <activity
+            android:name="notas.habla"
+            android:exported="false" />
+        <activity
+            android:name="notas.voz"
+            android:exported="false" />
+        <activity
+            android:name="notas.activity_note_list"
+            android:exported="false" />
+        <activity
+            android:name="notas.NoteListActivity"
+            android:exported="false" />
+        <activity
+            android:name="notas.MenuNotaActivity"
+            android:exported="false" />
+        <activity
+            android:name="notas.notaActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.SaberActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.AsistenciaActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.OpcionesActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.AccesibilidadActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.SonidoActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.NotificacionesActivity"
+            android:exported="false" />
+        <activity
+            android:name="settings.CuentaActivity"
+            android:exported="false" />
         <activity
             android:name="settings.pruebaActivity"
             android:exported="false" />
@@ -27,7 +69,6 @@
         <activity
             android:name="principal.homeActivity"
             android:exported="false" />
-
         <!--
         <activity
             android:name="principal.inicioActivity"
@@ -39,20 +80,19 @@
             </intent-filter>
         </activity>
         -->
-
         <activity
             android:name="principal.authActivity"
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="principal.inicioActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

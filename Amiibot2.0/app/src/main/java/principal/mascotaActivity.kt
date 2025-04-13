@@ -47,7 +47,7 @@ class mascotaActivity : AppCompatActivity() {
         progressEnergia = findViewById(R.id.progressBar4)
         nivelText = findViewById(R.id.textView1)
 
-        mascotaManager.iniciarReduccionAutomatica()
+        mascotaManager.iniciarReduccionAutomatica(this)
         //mascotaManager.configurarCarino()
         actualizarInterfaz()
     }

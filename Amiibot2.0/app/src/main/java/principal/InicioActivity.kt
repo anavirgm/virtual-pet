@@ -10,9 +10,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.amiibot.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import principal.homeActivity
+import java.util.concurrent.TimeUnit
 
 class inicioActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
@@ -152,4 +156,6 @@ class inicioActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
+
+
 }

@@ -95,10 +95,12 @@
                                 android:scaleType="fitCenter"/>
 
                             <TextView
+                                android:id="@+id/precio_comida_1_oferta"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Comida"
+                                android:text="5"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -124,10 +126,12 @@
                                 android:scaleType="fitCenter"/>
 
                             <TextView
+                                android:id="@+id/precio_comida_2_oferta"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dulces"
+                                android:text="5"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -153,10 +157,12 @@
                                 android:scaleType="fitCenter"/>
 
                             <TextView
+                                android:id="@+id/precio_comida_3_oferta"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dulces"
+                                android:text="5"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -181,10 +187,12 @@
                                 android:scaleType="fitCenter"/>
 
                             <TextView
+                                android:id="@+id/precio_comida_4_oferta"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dulces"
+                                android:text="5"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -686,7 +694,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="10dp">
 
-                    <!-- Potenciador 1 -->
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -698,17 +706,22 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
+                            <!-- Potenciador 1 -->
+
                             <ImageView
+                                android:id="@+id/potenciador_1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/potenciador_1"
                                 android:scaleType="centerCrop"/>
 
                             <TextView
+                                android:id="@+id/precio_potenciador_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Potenciador 1"
+                                android:text="30"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -727,16 +740,19 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/potenciador_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/potenciador_2"
                                 android:scaleType="centerCrop"/>
 
                             <TextView
+                                android:id="@+id/precio_potenciador_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Potenciador 2"
+                                android:text="30"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -755,16 +771,19 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/potenciador_3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/potenciador_3"
                                 android:scaleType="centerCrop"/>
 
                             <TextView
+                                android:id="@+id/precio_potenciador_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Potenciador 3"
+                                android:text="30"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
@@ -782,16 +801,19 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/potenciador_4"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/potenciador_4"
                                 android:scaleType="centerCrop"/>
 
                             <TextView
+                                android:id="@+id/precio_potenciador_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Potenciador 4"
+                                android:text="30"
                                 android:textAlignment="center"
+                                android:textColor="@android:color/holo_red_dark"
                                 android:textSize="15sp"/>
                         </LinearLayout>
 

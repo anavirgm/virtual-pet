@@ -46,9 +46,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0") // Para realizar solicitudes HTTP
+    implementation("org.json:json:20250107") // Para trabajar con datos JSON
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
 }

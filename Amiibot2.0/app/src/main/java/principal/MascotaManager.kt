@@ -1,19 +1,28 @@
 package principal
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.amiibot.R
+import java.util.concurrent.TimeUnit
 
 class MascotaManager(private val context: Context, private val mascotaImage: ImageView) {
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MascotaPrefs", Context.MODE_PRIVATE)
     private var handler = Handler(Looper.getMainLooper())
+    private var comerSound: MediaPlayer = MediaPlayer.create(context, R.raw.comer)
+    private var carinoSound: MediaPlayer = MediaPlayer.create(context, R.raw.carino)
+    private var subirNivelSound: MediaPlayer = MediaPlayer.create(context, R.raw.subir_nivel)
+
 
     var xp = 0
     var hambre = 100
@@ -44,6 +53,10 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
         })
     }
 
+    fun encenderLampara() {
+        isLampOff = false // 🔹 Indicar que la lámpara está encendida
+        actualizarImagenMascota() // Restaurar la imagen normal
+    }
 
     fun actualizarImagenMascota() {
         if (isLampOff && energia < 100) return // 🔹 No actualizar la imagen si está en "modo noche"
@@ -52,16 +65,11 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
             isHolding -> getEmocionMascota("carino")
             energia < 30 -> getEmocionMascota("triste")
             hambre < 50 -> getEmocionMascota("hambre")
-            animo >= 80 -> getEmocionMascota("feliz")
+            animo >= 90 -> getEmocionMascota("feliz")
             animo < 50 -> getEmocionMascota("enojado")
             else -> baseMascota
         }
         mascotaImage.setImageResource(imagenMascota)
-    }
-
-    fun encenderLampara() {
-        isLampOff = false // 🔹 Indicar que la lámpara está encendida
-        actualizarImagenMascota() // Restaurar la imagen normal
     }
 
     fun getEmocionMascota(emocion: String): Int {
@@ -118,26 +126,13 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
         editor.apply()
     }
 
+    fun iniciarReduccionAutomatica(context: Context) {
+        val workRequest = PeriodicWorkRequestBuilder<ReduccionWorker>(15, TimeUnit.MINUTES)
+            .build()
 
-
-    fun iniciarReduccionAutomatica() {
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (hambre > 0) hambre -= 1
-                if (animo > 0) animo -= 1
-                if (energia > 0) energia -= 1
-
-                if (hambre < 0) hambre = 0
-                if (animo < 0) animo = 0
-                if (energia < 0) energia = 0
-
-                guardarDatos()
-                actualizarImagenMascota()
-
-                handler.postDelayed(this, 30000)
-            }
-        }, 30000)
+        WorkManager.getInstance(context).enqueue(workRequest)
     }
+
 
 
     fun actualizarXP() {
@@ -150,6 +145,8 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
         if (xp >= 100) {
             xp = 0
             nivel += 1
+
+            subirNivelSound.start()
             verificarEvolucion() // Verificar si evoluciona al subir de nivel
         }
 
@@ -163,15 +160,29 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
 
 
 
-    fun alimentarMascota() {
+    fun alimentarMascota(resourceId: Int? = null) {
+        if (resourceId != null) {
+            // Verificamos si es un potenciador
+            if (resourceId == R.drawable.potenciador_1 ||
+                resourceId == R.drawable.potenciador_2 ||
+                resourceId == R.drawable.potenciador_3 ||
+                resourceId == R.drawable.potenciador_4) {
+                usarPotenciador(resourceId)
+                return
+            }
+        }
+
+        // Comida normal
         if (hambre < 100) {
             hambre += 10
             if (hambre > 100) hambre = 100
             actualizarXP()
+            comerSound.start()
             guardarDatos()
             actualizarImagenMascota()
         }
     }
+
 
     fun configurarCarino() {
         mascotaImage.setOnLongClickListener {
@@ -182,6 +193,7 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
                 animo += 10
                 if (animo > 100) animo = 100
                 actualizarXP()
+                carinoSound.start()
                 guardarDatos()
                 actualizarImagenMascota()
             }
@@ -223,13 +235,13 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
 
     fun verificarEvolucion() {
         when (nivel) {
-            2 -> baseMascota = when (baseMascota) {
+            10 -> baseMascota = when (baseMascota) {
                 R.drawable.fuego -> R.drawable.fuego_2
                 R.drawable.electrico -> R.drawable.electrico_2
                 R.drawable.agua -> R.drawable.agua_2
                 else -> baseMascota
             }
-            3 -> baseMascota = when (baseMascota) {
+            20 -> baseMascota = when (baseMascota) {
                 R.drawable.fuego_2 -> R.drawable.fuego_3
                 R.drawable.electrico_2 -> R.drawable.electrico_3
                 R.drawable.agua_2 -> R.drawable.agua_3
@@ -240,6 +252,42 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
         actualizarImagenMascota()
     }
 
+    fun usarPotenciador(resourceId: Int) {
+        var cambio = false
+
+        when (resourceId) {
+            R.drawable.potenciador_1 -> { // Energía
+                if (energia < 100) {
+                    energia = (energia + 50).coerceAtMost(100)
+                    cambio = true
+                }
+            }
+            R.drawable.potenciador_2 -> { // Hambre
+                if (hambre < 100) {
+                    hambre = (hambre + 50).coerceAtMost(100)
+                    cambio = true
+                }
+            }
+            R.drawable.potenciador_3 -> { // Ánimo
+                if (animo < 100) {
+                    animo = (animo + 50).coerceAtMost(100)
+                    cambio = true
+                }
+            }
+            R.drawable.potenciador_4 -> { // Todos
+                if (energia < 100) energia = (energia + 50).coerceAtMost(100)
+                if (hambre < 100) hambre = (hambre + 50).coerceAtMost(100)
+                if (animo < 100) animo = (animo + 50).coerceAtMost(100)
+                cambio = true
+            }
+        }
+
+        if (cambio) {
+            actualizarXP() // Solo actualiza XP si realmente hubo cambios
+            guardarDatos()
+            actualizarImagenMascota()
+        }
+    }
 
 
     /*
@@ -247,36 +295,53 @@ class MascotaManager(private val context: Context, private val mascotaImage: Ima
     fun getEmocionMascota(emocion: String): Int {
         return when (baseMascota) {
             R.drawable.fuego, R.drawable.fuego_2, R.drawable.fuego_3 -> when (emocion) {
-                "triste" -> if (nivel >= 3) R.drawable.fuego_triste_3 else if (nivel >= 2) R.drawable.fuego_triste_2 else R.drawable.fuego_triste
-                "feliz" -> if (nivel >= 3) R.drawable.fuego_feliz_3 else if (nivel >= 2) R.drawable.fuego_feliz_2 else R.drawable.fuego_feliz
-                "enojado" -> if (nivel >= 3) R.drawable.fuego_enojado_3 else if (nivel >= 2) R.drawable.fuego_enojado_2 else R.drawable.fuego_enojado
-                "hambre" -> if (nivel >= 3) R.drawable.fuego_hambre_3 else if (nivel >= 2) R.drawable.fuego_hambre_2 else R.drawable.fuego_hambre
-                "sueno" -> if (nivel >= 3) R.drawable.fuego_sueno_3 else if (nivel >= 2) R.drawable.fuego_sueno_2 else R.drawable.fuego_sueno
-                "carino" -> if (nivel >= 3) R.drawable.fuego_carino_3 else if (nivel >= 2) R.drawable.fuego_carino_2 else R.drawable.fuego_carino
+                "triste" -> if (nivel >= 20) R.drawable.fuego_triste_3 else if (nivel >= 10) R.drawable.fuego_triste_2 else R.drawable.fuego_triste
+                "feliz" -> if (nivel >= 20) R.drawable.fuego_feliz_3 else if (nivel >= 10) R.drawable.fuego_feliz_2 else R.drawable.fuego_feliz
+                "enojado" -> if (nivel >= 20) R.drawable.fuego_enojado_3 else if (nivel >= 10) R.drawable.fuego_enojado_2 else R.drawable.fuego_enojado
+                "hambre" -> if (nivel >= 20) R.drawable.fuego_hambre_3 else if (nivel >= 10) R.drawable.fuego_hambre_2 else R.drawable.fuego_hambre
+                "sueno" -> if (nivel >= 20) R.drawable.fuego_sueno_3 else if (nivel >= 10) R.drawable.fuego_sueno_2 else R.drawable.fuego_sueno
+                "carino" -> if (nivel >= 20) R.drawable.fuego_carino_3 else if (nivel >= 10) R.drawable.fuego_carino_2 else R.drawable.fuego_carino
                 else -> baseMascota
             }
             R.drawable.electrico, R.drawable.electrico_2, R.drawable.electrico_3 -> when (emocion) {
-                "triste" -> if (nivel >= 3) R.drawable.electrico_triste_3 else if (nivel >= 2) R.drawable.electrico_triste_2 else R.drawable.electrico_triste
-                "feliz" -> if (nivel >= 3) R.drawable.electrico_feliz_3 else if (nivel >= 2) R.drawable.electrico_feliz_2 else R.drawable.electrico_feliz
-                "enojado" -> if (nivel >= 3) R.drawable.electrico_enojado_3 else if (nivel >= 2) R.drawable.electrico_enojado_2 else R.drawable.electrico_enojado
-                "hambre" -> if (nivel >= 3) R.drawable.electrico_hambre_3 else if (nivel >= 2) R.drawable.electrico_hambre_2 else R.drawable.electrico_hambre
-                "sueno" -> if (nivel >= 3) R.drawable.electrico_sueno_3 else if (nivel >= 2) R.drawable.electrico_sueno_2 else R.drawable.electrico_sueno
-                "carino" -> if (nivel >= 3) R.drawable.electrico_carino_3 else if (nivel >= 2) R.drawable.electrico_carino_2 else R.drawable.electrico_carino
+                "triste" -> if (nivel >= 20) R.drawable.electrico_triste_3 else if (nivel >= 10) R.drawable.electrico_triste_2 else R.drawable.electrico_triste
+                "feliz" -> if (nivel >= 20) R.drawable.electrico_feliz_3 else if (nivel >= 10) R.drawable.electrico_feliz_2 else R.drawable.electrico_feliz
+                "enojado" -> if (nivel >= 20) R.drawable.electrico_enojado_3 else if (nivel >= 10) R.drawable.electrico_enojado_2 else R.drawable.electrico_enojado
+                "hambre" -> if (nivel >= 20) R.drawable.electrico_hambre_3 else if (nivel >= 10) R.drawable.electrico_hambre_2 else R.drawable.electrico_hambre
+                "sueno" -> if (nivel >= 20) R.drawable.electrico_sueno_3 else if (nivel >= 10) R.drawable.electrico_sueno_2 else R.drawable.electrico_sueno
+                "carino" -> if (nivel >= 20) R.drawable.electrico_carino_3 else if (nivel >= 10) R.drawable.electrico_carino_2 else R.drawable.electrico_carino
                 else -> baseMascota
             }
             R.drawable.agua, R.drawable.agua_2, R.drawable.agua_3 -> when (emocion) {
-                "triste" -> if (nivel >= 3) R.drawable.agua_triste_3 else if (nivel >= 2) R.drawable.agua_triste_2 else R.drawable.agua_triste
-                "feliz" -> if (nivel >= 3) R.drawable.agua_feliz_3 else if (nivel >= 2) R.drawable.agua_feliz_2 else R.drawable.agua_feliz
-                "enojado" -> if (nivel >= 3) R.drawable.agua_enojado_3 else if (nivel >= 2) R.drawable.agua_enojado_2 else R.drawable.agua_enojado
-                "hambre" -> if (nivel >= 3) R.drawable.agua_hambre_3 else if (nivel >= 2) R.drawable.agua_hambre_2 else R.drawable.agua_hambre
-                "sueno" -> if (nivel >= 3) R.drawable.agua_sueno_3 else if (nivel >= 2) R.drawable.agua_sueno_2 else R.drawable.agua_sueno
-                "carino" -> if (nivel >= 3) R.drawable.agua_carino_3 else if (nivel >= 2) R.drawable.agua_carino_2 else R.drawable.agua_carino
+                "triste" -> if (nivel >= 20) R.drawable.agua_triste_3 else if (nivel >= 10) R.drawable.agua_triste_2 else R.drawable.agua_triste
+                "feliz" -> if (nivel >= 20) R.drawable.agua_feliz_3 else if (nivel >= 10) R.drawable.agua_feliz_2 else R.drawable.agua_feliz
+                "enojado" -> if (nivel >= 20) R.drawable.agua_enojado_3 else if (nivel >= 10) R.drawable.agua_enojado_2 else R.drawable.agua_enojado
+                "hambre" -> if (nivel >= 20) R.drawable.agua_hambre_3 else if (nivel >= 10) R.drawable.agua_hambre_2 else R.drawable.agua_hambre
+                "sueno" -> if (nivel >= 20) R.drawable.agua_sueno_3 else if (nivel >= 10) R.drawable.agua_sueno_2 else R.drawable.agua_sueno
+                "carino" -> if (nivel >= 20) R.drawable.agua_carino_3 else if (nivel >= 10) R.drawable.agua_carino_2 else R.drawable.agua_carino
                 else -> baseMascota
             }
             else -> baseMascota
         }
     }
     */
+
+    fun onDestroy() {
+        if (comerSound.isPlaying) {
+            comerSound.stop()
+        }
+        comerSound.release()
+
+        if (carinoSound.isPlaying) {
+            carinoSound.stop()
+        }
+        carinoSound.release()
+
+        if (subirNivelSound.isPlaying) {
+            subirNivelSound.stop()
+        }
+        subirNivelSound.release()
+    }
 
 
 

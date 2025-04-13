@@ -47,7 +47,7 @@
         android:src="@drawable/derecha"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Tienda"
+        app:layout_constraintEnd_toStartOf="@+id/menuTienda"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Comida"
         app:layout_constraintTop_toTopOf="parent"
@@ -123,23 +123,60 @@
         android:adjustViewBounds="true"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Tienda"
+        app:layout_constraintEnd_toStartOf="@+id/menuTienda"
         app:layout_constraintStart_toEndOf="@+id/mascosta"/>
 
     <ImageButton
-        android:id="@+id/Tienda"
+        android:id="@+id/menuTienda"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="15dp"
         android:background="@drawable/button_background"
-        android:src="@drawable/tienda_icon"
-        android:padding="8dp"
+        android:src="@drawable/menu"
         android:scaleType="fitCenter"
+        android:padding="8dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 
+    <LinearLayout
+        android:id="@+id/menuDesplegable"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/menu_background"
+        android:padding="4dp"
+        android:visibility="gone"
+        android:elevation="6dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/Tienda"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="2dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/button_background"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/tienda_icon" />
+
+        <ImageButton
+            android:id="@+id/btnota"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="2dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/button_background"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/notas" />
+    </LinearLayout>
 
 
     <ImageView
@@ -163,6 +200,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
